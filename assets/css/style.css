@@ -634,6 +634,7 @@ body {
     max-height: calc(100% - 93px);
     overflow-y: scroll;
     overflow-x: hidden;
+    background: #d0d0d0;
     background-image: url('https://kumar.rajendraarora.com/assets/img/background.png');
 }
 
