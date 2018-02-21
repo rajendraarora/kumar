@@ -3,7 +3,7 @@
 <head>
     <meta charset='UTF-8'>
     <link rel="shortcut icon" type="image/x-icon" href="#"/>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
@@ -27,17 +27,17 @@
             <div class="messages">
                 <ul>
                     <li class="sent">
-                        <img src="https://kumar.rajendraarora.com/assets/img/anonymous.png" alt="" />
+                        <img src="https://kumar.rajendraarora.com/assets/img/user.png" alt="" />
                         <p>This is my sent message anonymously!</p>
                     </li>
                     <li class="replies">
                         <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                         <p>this is my replied message from Kumar!</p>
                     </li>
-                    <li class="replies">
+                    <!-- <li class="replies">
                             <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                             <img src="./assets/img/sending.gif" alt="sending..." />
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="message-input">
@@ -53,35 +53,33 @@
     <script>$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
         function newMessage() {
+
+            $("#sending").remove();
+
             message = $(".message-input input").val();
             if ($.trim(message) == '') {
                 return false;
             }
             
-            $('<li class="sent"><img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            var sending_load = true;
+
+            $('<li class="sent"><img src="https://www.rajendraarora.com/assets/images/user.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
             $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+            if(sending_load) {
+                $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="./assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
+            }
+            /*Calling Kumar*/
+            $.get('http://heroku-server.000webhostapp.com?timezoneOffset='+new Date().getTimezoneOffset()+'&q='+message,
+            function(kumar_resp) {
+                sending_load = false;
 
-             /*Calling Kumar*/
-             $.ajax({
-                url: 'https://kumar-chatbot.herokuapp.com/kumar/chat.json',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: {
-                    timezoneOffset: '-330',
-                    q: 'hi'
-                },
-                dataType: 'json',
-                // beforeSend: function(){
-                
-                // },
-                // complete : function() {
-                    
-                // },
-                success: function(response) {
-                    console.log(response);
+                if(sending_load == false) {
+                    $("#sending").remove();
                 }
+
+                console.log(kumar_resp)
             });
         };
 
