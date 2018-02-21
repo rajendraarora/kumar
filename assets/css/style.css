@@ -784,3 +784,19 @@ body {
 #frame .content .message-input .wrap button:focus {
     outline: none;
 }
+
+.today-date {
+    background: #999;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 22px;
+    margin: 5px auto;
+    display: block;
+    width: 110px;
+}
+
+.today-date p {
+    color: #fff;
+    height: 30px;
+}

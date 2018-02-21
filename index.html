@@ -18,22 +18,17 @@
             <div class="contact-profile">
                 <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="" />
                 <p>Kumar</p>
-                <div class="social-media">
+                <div id="kumar-status" class="social-media">
                     <p>Sleeping <i class="fa fa-bed"></i>Zzz ..&nbsp;&nbsp;</p>
                     <!-- <i class="fa fa-facebook" aria-hidden="true"></i>
                     <i class="fa fa-twitter" aria-hidden="true"></i> -->
                 </div>
             </div>
             <div class="messages">
+                <div class="today-date">
+                    <p id="getDate"></p>
+                </div>
                 <ul>
-                    <li class="sent">
-                        <img src="https://kumar.rajendraarora.com/assets/img/user.png" alt="" />
-                        <p>This is my sent message anonymously!</p>
-                    </li>
-                    <li class="replies">
-                        <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
-                        <p>this is my replied message from Kumar!</p>
-                    </li>
                     <!-- <li class="replies">
                             <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                             <img src="./assets/img/sending.gif" alt="sending..." />
@@ -50,36 +45,48 @@
             </div>
         </div>
     </div>
-    <script>$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd = '0'+dd
+        } 
+        if(mm<10) {
+            mm = '0'+mm
+        } 
+        today = dd + '/' + mm + '/' + yyyy;
+        document.getElementById("getDate").innerHTML=today;
         function newMessage() {
-
+            $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
             $("#sending").remove();
 
             message = $(".message-input input").val();
             if ($.trim(message) == '') {
                 return false;
             }
-            
-            var sending_load = true;
 
-            $('<li class="sent"><img src="https://www.rajendraarora.com/assets/images/user.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('<li class="sent"><img src="https://kumar.rajendraarora.com/assets/img/user.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
-            $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-            if(sending_load) {
-                $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="./assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
-            }
+            $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="./assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
+ 
             /*Calling Kumar*/
             $.get('http://heroku-server.000webhostapp.com?timezoneOffset='+new Date().getTimezoneOffset()+'&q='+message,
             function(kumar_resp) {
-                sending_load = false;
 
-                if(sending_load == false) {
+                if(kumar_resp) {
                     $("#sending").remove();
-                }
+                    $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
+                    console.log(kumar_resp)
+                    if(kumar_resp.answers[0].actions[0].type === "answer") {
+                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                    }
 
-                console.log(kumar_resp)
+                    
+                    $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
+                }
             });
         };
 
