@@ -13,6 +13,11 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+#frame .content .messages {
+    background: #d0d0d0;
+    background-image: url('https://kumar.rajendraarora.com/assets/img/background.png');
+}
+
 #frame {
     width: 95%;
     min-width: 360px;
@@ -634,8 +639,6 @@ body {
     max-height: calc(100% - 93px);
     overflow-y: scroll;
     overflow-x: hidden;
-    background: #d0d0d0;
-    background-image: url('https://kumar.rajendraarora.com/assets/img/background.png');
 }
 
 @media screen and (max-width: 735px) {
