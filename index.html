@@ -62,11 +62,33 @@
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
             $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+             /*Calling Kumar*/
+             $.ajax({
+                url: 'https://kumar-chatbot.herokuapp.com/kumar/chat.json',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: {
+                    timezoneOffset: '-330',
+                    q: 'hi'
+                },
+                dataType: 'json',
+                // beforeSend: function(){
+                
+                // },
+                // complete : function() {
+                    
+                // },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
         };
 
         $('.submit').click(function () {
             newMessage();
         });
+
 
         $(window).on('keydown', function (e) {
             if (e.which == 13) {
