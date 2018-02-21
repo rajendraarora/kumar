@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class=''>
+<head>
+    <meta charset='UTF-8'>
+    <link rel="shortcut icon" type="image/x-icon" href="#"/>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+    <link rel='stylesheet' href="./assets/css/style.css" />
+</head>
+
+<body>
+    <div id="frame">
+        <div class="content">
+            <div class="contact-profile">
+                <img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" />
+                <p>Kumar</p>
+                <div class="social-media">
+                    <p>Sleeping <i class="fa fa-bed"></i>Zzz ..&nbsp;&nbsp;</p>
+                    <!-- <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fa fa-twitter" aria-hidden="true"></i> -->
+                </div>
+            </div>
+            <div class="messages">
+                <ul>
+                    <li class="sent">
+                        <img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" />
+                        <p>This is my sent message anonymously!</p>
+                    </li>
+                    <li class="replies">
+                        <img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" />
+                        <p>this is my replied message from Kumar!</p>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="message-input">
+                <div class="wrap">
+                    <input type="text" placeholder="Write your message..." />
+                    <button class="submit">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+        $("#profile-img").click(function () {
+            $("#status-options").toggleClass("active");
+        });
+
+        $(".expand-button").click(function () {
+            $("#profile").toggleClass("expanded");
+            $("#contacts").toggleClass("expanded");
+        });
+
+        $("#status-options ul li").click(function () {
+            $("#profile-img").removeClass();
+            $("#status-online").removeClass("active");
+            $("#status-away").removeClass("active");
+            $("#status-busy").removeClass("active");
+            $("#status-offline").removeClass("active");
+            $(this).addClass("active");
+
+            if ($("#status-online").hasClass("active")) {
+                $("#profile-img").addClass("online");
+            } else if ($("#status-away").hasClass("active")) {
+                $("#profile-img").addClass("away");
+            } else if ($("#status-busy").hasClass("active")) {
+                $("#profile-img").addClass("busy");
+            } else if ($("#status-offline").hasClass("active")) {
+                $("#profile-img").addClass("offline");
+            } else {
+                $("#profile-img").removeClass();
+            };
+
+            $("#status-options").removeClass("active");
+        });
+
+        function newMessage() {
+            message = $(".message-input input").val();
+            if ($.trim(message) == '') {
+                return false;
+            }
+            $('<li class="sent"><img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $('.contact.active .preview').html('<span>You: </span>' + message);
+            $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+        };
+
+        $('.submit').click(function () {
+            newMessage();
+        });
+
+        $(window).on('keydown', function (e) {
+            if (e.which == 13) {
+                newMessage();
+                return false;
+            }
+        });
+    </script>
+</body>
+
+</html>
