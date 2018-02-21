@@ -27,15 +27,15 @@
             <div class="messages">
                 <ul>
                     <li class="sent">
-                        <img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" />
+                        <img src="https://kumar.rajendraarora.com/assets/img/anonymous.png" alt="" />
                         <p>This is my sent message anonymously!</p>
                     </li>
                     <li class="replies">
-                        <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="" />
+                        <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                         <p>this is my replied message from Kumar!</p>
                     </li>
                     <li class="replies">
-                            <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="" />
+                            <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                             <img src="./assets/img/sending.gif" alt="sending..." />
                     </li>
                 </ul>
@@ -57,6 +57,7 @@
             if ($.trim(message) == '') {
                 return false;
             }
+            
             $('<li class="sent"><img src="https://www.rajendraarora.com/assets/images/rajendra_arora.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
