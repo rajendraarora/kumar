@@ -84,7 +84,7 @@
             $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="./assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
  
             /*Calling Kumar*/
-            $.get('https://heroku-mind.gearhostpreview.com/?timezoneOffset='+new Date().getTimezoneOffset()+'&q='+message,
+            $.get('https://heroku-server.000webhostapp.com/?timezoneOffset='+new Date().getTimezoneOffset()+'&q='+message,
             function(kumar_resp) {
 
                 if(kumar_resp) {
