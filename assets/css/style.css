@@ -800,3 +800,9 @@ body {
     color: #fff;
     height: 30px;
 }
+
+.pixabay-img {
+    height: 200px;
+    width: 250px;
+    border-radius: unset;
+}

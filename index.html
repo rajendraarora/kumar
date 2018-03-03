@@ -96,7 +96,7 @@
                         subString = "pixabay";
                         if(resString.indexOf(subString) !== -1) {
 
-                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p><img src="'+kumar_resp.answers[0].actions[0].expression+'" alt="image" /></p></li>').appendTo($('.messages ul'));
+                            $('<li class="replies"><img class="_pixabay-img" src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p><img src="'+kumar_resp.answers[0].actions[0].expression+'" alt="image" /></p></li>').appendTo($('.messages ul'));
                         }else{
 
                             $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
