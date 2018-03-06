@@ -1,6 +1,5 @@
-# kumar
-My brother
+# Kumar
+My brother (My personal AI)
 
 https://kumar.rajendraarora.com/
 
-Soon he is coming away!
