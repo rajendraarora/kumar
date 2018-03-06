@@ -111,6 +111,16 @@
                             $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumarRes+'</p></li>').appendTo($('.messages ul'));
                             document.getElementById("audioPlayer").setAttribute("src", mp3Url);
                             document.getElementById('audioPlayer').play();
+                        }else if(resString === "music is stopped"){
+                            document.getElementById('audioPlayer').pause();
+                            document.getElementById("audioPlayer").currentTime = 0;
+                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                        }else if(resString === "music is paused"){
+                            document.getElementById('audioPlayer').pause();
+                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                        }else if(resString === "music is resumed") {
+                            document.getElementById('audioPlayer').play();
+                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
                         }else{
 
                             $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
