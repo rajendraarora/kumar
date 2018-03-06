@@ -44,6 +44,7 @@
                             <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                             <img src="./assets/img/sending.gif" alt="sending..." />
                     </li> -->
+                    <li id="sleeping-msg" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>Kumar is sleeping to save CPU memory. <img class="icon-sleeping-gif" src="./assets/img/sleeping.gif" alt="sleeping ..." />Say hi to wake him up!</p></li>
                 </ul>
             </div>
             <div class="message-input">
@@ -88,6 +89,7 @@
             function(kumar_resp) {
 
                 if(kumar_resp) {
+                    $("#sleeping-msg").fadeOut( "slow" );
                     $("#sending").remove();
                     $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
                     if(kumar_resp.answers[0].actions[0].type === "answer" && !kumar_resp.answers[0].actions[0].phrases) {

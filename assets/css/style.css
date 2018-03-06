@@ -806,3 +806,8 @@ body {
     width: 250px;
     border-radius: unset;
 }
+
+#frame .content .messages ul li.replies .icon-sleeping-gif{
+    height: 50px;
+    width: 70px;
+}
