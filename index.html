@@ -109,6 +109,8 @@
                             
 
                             $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumarRes+'</p></li>').appendTo($('.messages ul'));
+                            document.getElementById("audioPlayer").setAttribute("src", mp3Url);
+                            document.getElementById('audioPlayer').play();
                         }else{
 
                             $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
@@ -137,6 +139,7 @@
             }
         });
     </script>
+    <audio id="audioPlayer" autoplay="false" style="display:none;"></audio>
 </body>
 
 </html>
