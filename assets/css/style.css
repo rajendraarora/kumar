@@ -823,6 +823,7 @@ body {
     padding-left: 15px;
     font-size: 14px;
     padding-right: 15px;
+    line-height: 130%;
 }
 #frame .content .messages #sleeping-msg img {
     height:40px;
