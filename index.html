@@ -39,13 +39,16 @@
                 <div class="today-date">
                     <p id="getDate"></p>
                 </div>
+                <div id="sleeping-msg-container" style="text-align:center;">
+                    <div id="sleeping-msg">
+                        <p>Please wait while Kumar is preparing himself</p><img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="Waking up ..." />
+                    </div>
+                </div>
                 <ul>
                     <!-- <li class="replies">
                             <img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" />
                             <img src="./assets/img/sending.gif" alt="sending..." />
                     </li> -->
-                    <li id="sleeping-msg" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>Kumar is sleeping to save CPU memory. <img class="icon-sleeping-gif" src="./assets/img/sleeping.gif" alt="sleeping ..." /></p></li>
-                    <li id="wake-up-msg" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>Waking up <img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="Waking up ..." /></p></li>
                 </ul>
             </div>
             <div class="message-input">
@@ -122,8 +125,7 @@
 
                     if(kumar_resp) {
 
-                        $("#sleeping-msg").fadeOut("slow");
-                        $("#wake-up-msg").fadeOut("slow");
+                        $("#sleeping-msg-container").fadeOut("slow");
                         $("#sending").remove();
                         $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
                         new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();

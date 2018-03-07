@@ -811,3 +811,20 @@ body {
     height: 50px;
     width: 70px;
 }
+
+#frame .content .messages #sleeping-msg {
+    text-align: center;
+    background: #f5f5f5;
+    display: inline-block;
+    border-radius: 20px;
+    float: none;
+    width: 330px;
+    padding-top: 10px;
+    padding-left: 15px;
+    font-size: 14px;
+    padding-right: 15px;
+}
+#frame .content .messages #sleeping-msg img {
+    height:40px;
+    width:40px;
+}
