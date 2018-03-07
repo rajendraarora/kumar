@@ -92,6 +92,7 @@
                     $("#sleeping-msg").fadeOut( "slow" );
                     $("#sending").remove();
                     $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
+                    new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
                     if(kumar_resp.answers[0].actions[0].type === "answer" && !kumar_resp.answers[0].actions[0].phrases) {
                         
                         var resString = kumar_resp.answers[0].actions[0].expression,
