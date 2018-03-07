@@ -77,7 +77,6 @@
         function newMessage() {
             $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
             new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
-            $("#sending").remove();
 
             message = $(".message-input input").val();
             if ($.trim(message) == '') {
@@ -87,7 +86,6 @@
             $('<li class="sent"><img src="https://kumar.rajendraarora.com/assets/img/user.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
-            $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
  
             callKumarMind(message);
 
@@ -107,62 +105,74 @@
 
         function callKumarMind(message) {
 
-        /*Calling Kumar*/
-        $.get('https://heroku-server.000webhostapp.com/?timezoneOffset='+new Date().getTimezoneOffset()+'&q='+message,
-        function(kumar_resp) {
 
-            if(kumar_resp) {
+            /*Ajax request for calling kumar mind server.*/
+            $.ajax({
+                url: 'https://kumar-mind.herokuapp.com/kumar/chat.json?q='+message,
+                type: 'POST',
+                Accept: 'application/json',
+                dataType: 'json',
+                beforeSend: function(){
+                    $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
+                },
+                complete : function() {
+                    $("#sending").remove();
+                },
+                success: function(kumar_resp) {
 
-                $("#sleeping-msg").fadeOut("slow");
-                $("#wake-up-msg").fadeOut("slow");
-                $("#sending").remove();
-                $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
-                new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
-                if(kumar_resp.answers[0].actions[0].type === "answer" && !kumar_resp.answers[0].actions[0].phrases) {
-                    
-                    var resString = kumar_resp.answers[0].actions[0].expression,
-                    subString = "pixabay";
+                    if(kumar_resp) {
 
-                    /*mp3 url*/
-                    var mp3Found = ".mp3";
+                        $("#sleeping-msg").fadeOut("slow");
+                        $("#wake-up-msg").fadeOut("slow");
+                        $("#sending").remove();
+                        $("#kumar-status").html('<p>Woken up <i class="fa fa-thumbs-up"></i>hoho!!&nbsp;&nbsp;</p>');
+                        new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
+                        if(kumar_resp.answers[0].actions[0].type === "answer" && !kumar_resp.answers[0].actions[0].phrases) {
+                            
+                            var resString = kumar_resp.answers[0].actions[0].expression,
+                            subString = "pixabay";
+
+                            /*mp3 url*/
+                            var mp3Found = ".mp3";
 
 
-                    if(resString.indexOf(subString) !== -1) {
+                            if(resString.indexOf(subString) !== -1) {
 
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p class="_pixabay-img-p"><img class="_pixabay-img" src="'+kumar_resp.answers[0].actions[0].expression+'" alt="image" /></p></li>').appendTo($('.messages ul'));
-                    }else if(resString.indexOf(mp3Found) !== -1 ) {
-                        var mp3Url = resString.match(/\bhttps?:\/\/\S+/gi);
-                        var kumarRes = resString.replace(mp3Url[0], "").replace(/\s+$/, '');
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p class="_pixabay-img-p"><img class="_pixabay-img" src="'+kumar_resp.answers[0].actions[0].expression+'" alt="image" /></p></li>').appendTo($('.messages ul'));
+                            }else if(resString.indexOf(mp3Found) !== -1 ) {
+                                var mp3Url = resString.match(/\bhttps?:\/\/\S+/gi);
+                                var kumarRes = resString.replace(mp3Url[0], "").replace(/\s+$/, '');
+
+                                
+
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumarRes+'</p></li>').appendTo($('.messages ul'));
+                                document.getElementById("audioPlayer").setAttribute("src", mp3Url);
+                                document.getElementById('audioPlayer').play();
+                            }else if(resString === "music is stopped"){
+                                document.getElementById('audioPlayer').pause();
+                                document.getElementById("audioPlayer").currentTime = 0;
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                            }else if(resString === "music is paused"){
+                                document.getElementById('audioPlayer').pause();
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                            }else if(resString === "music is resumed") {
+                                document.getElementById('audioPlayer').play();
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                            }else{
+
+                                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
+                            }
+                        }else{ 
+                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
+                        }
 
                         
-
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumarRes+'</p></li>').appendTo($('.messages ul'));
-                        document.getElementById("audioPlayer").setAttribute("src", mp3Url);
-                        document.getElementById('audioPlayer').play();
-                    }else if(resString === "music is stopped"){
-                        document.getElementById('audioPlayer').pause();
-                        document.getElementById("audioPlayer").currentTime = 0;
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                    }else if(resString === "music is paused"){
-                        document.getElementById('audioPlayer').pause();
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                    }else if(resString === "music is resumed") {
-                        document.getElementById('audioPlayer').play();
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                    }else{
-
-                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                    }
-                }else{ 
-                    $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
+                        $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
+                    }else {
+                        $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
+                    }    
                 }
-
-                
-                $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
-            }else {
-                $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
-            }
-        });
+            });
         }
     </script>
     <audio id="audioPlayer" autoplay="false" style="display:none;"></audio>
