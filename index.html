@@ -72,6 +72,7 @@
         document.getElementById("getDate").innerHTML=today;
         function newMessage() {
             $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
+            new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
             $("#sending").remove();
 
             message = $(".message-input input").val();
