@@ -53,7 +53,7 @@
             </div>
             <div class="message-input">
                 <div class="wrap">
-                    <input type="text" placeholder="Write your message..." />
+                    <input id="input-box" type="text" placeholder="Write your message..." />
                     <button class="submit">
                         <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
@@ -117,9 +117,11 @@
                 dataType: 'json',
                 beforeSend: function(){
                     $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
+                    document.getElementById('input-box').disabled = true;
                 },
                 complete : function() {
                     $("#sending").remove();
+                    document.getElementById('input-box').disabled = false;
                 },
                 success: function(kumar_resp) {
 
@@ -165,7 +167,7 @@
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
                             }
                         }else{ 
-                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
+                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>Not found in my memory!</p></li>').appendTo($('.messages ul'));
                         }
 
                         
