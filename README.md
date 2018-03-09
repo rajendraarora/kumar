@@ -1,5 +1,5 @@
 # Kumar
-My brother (My personal AI)
+My personal assistant
 
 https://kumar.rajendraarora.com/
 
