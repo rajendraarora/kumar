@@ -62,7 +62,9 @@
         </div>
     </div>
     <script>
-
+        $('body').click(function() {
+            $('#input-box').focus();
+        });
         callKumarMind("wake up kumar");
 
         var today = new Date();
@@ -122,6 +124,7 @@
                 complete : function() {
                     $("#sending").remove();
                     document.getElementById('input-box').disabled = false;
+                    $('#input-box').focus();
                 },
                 success: function(kumar_resp) {
 
