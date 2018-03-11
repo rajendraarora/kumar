@@ -78,7 +78,6 @@
         document.getElementById("getDate").innerHTML=today;
         function newMessage() {
             $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
-            new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
 
             message = $(".message-input input").val();
             if ($.trim(message) == '') {
@@ -117,6 +116,7 @@
                 beforeSend: function(){
                     $('<li id="sending" class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><img src="https://kumar.rajendraarora.com/assets/img/sending.gif" alt="sending..." /></li>').appendTo($('.messages ul'));
                     document.getElementById('input-box').disabled = true;
+                    new Audio("https://kumar.rajendraarora.com/assets/sound/beep_up.mp3").play();
                 },
                 complete : function() {
                     $("#sending").remove();
