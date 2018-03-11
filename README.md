@@ -1,5 +1,5 @@
 # Kumar
-My personal assistant
+Virtual assistant
 
 https://kumar.rajendraarora.com/
 
