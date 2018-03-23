@@ -123,6 +123,7 @@
                     document.getElementById('input-box').disabled = false;
                     $('#input-box').focus();
                 },
+                timeout: 5000,
                 success: function(kumar_resp) {
 
                     if(kumar_resp) {
@@ -166,15 +167,16 @@
 
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
                             }
-                        }else{ 
-                            $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>Not found in my memory!</p></li>').appendTo($('.messages ul'));
                         }
-
                         
                         $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
                     }else {
                         $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
                     }    
+                }
+            }).catch(function(e){
+                if(e.statusText == 'timeout'){
+                    $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I did not understand!</p></li>').appendTo($('.messages ul'));
                 }
             });
         }
