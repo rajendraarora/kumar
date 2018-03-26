@@ -128,17 +128,22 @@
 
                     if(kumar_resp) {
 
-                        var kumarVoice = new SpeechSynthesisUtterance();
-                        kumarVoice.voice = speechSynthesis.getVoices().filter(function(voice) {
-                            
-                        if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-                            return voice.name == "Microsoft David Desktop - English (United States)";
-                        }
-                        else{
-                            return voice.name == "Google UK English Male";
-                        }
+                        try{
+                            var kumarVoice = new SpeechSynthesisUtterance();
+                            kumarVoice.voice = speechSynthesis.getVoices().filter(function(voice) {
+                                
+                            if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+                                return voice.name == "Microsoft David Desktop - English (United States)";
+                            }
+                            else{
+                                return voice.name == "Google UK English Male";
+                            }
 
-                        })[0];
+                            })[0];
+                        }catch(e) {
+                            console.log('Voice system is not supported');
+                        }
+                        
 
                         $("#sleeping-msg-container").fadeOut("slow");
                         $("#sending").remove();
@@ -156,8 +161,14 @@
                             if(resString.indexOf(subString) !== -1) {
 
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p class="_pixabay-img-p"><img class="_pixabay-img" src="'+kumar_resp.answers[0].actions[0].expression+'" alt="image" /></p></li>').appendTo($('.messages ul'));
+                                
+                             try{   
                                 kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
                                 window.speechSynthesis.speak(kumarVoice);
+                             }catch(e){
+                                 console.log('voice is not supported');
+                             }
+                            
                             }else if(resString.indexOf(mp3Found) !== -1 ) {
                                 var mp3Url = resString.match(/\bhttps?:\/\/\S+/gi);
                                 var kumarRes = resString.replace(mp3Url[0], "").replace(/\s+$/, '');
@@ -165,45 +176,73 @@
                                 
 
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumarRes+'</p></li>').appendTo($('.messages ul'));
-                                kumarVoice.text = kumarRes;
-                                window.speechSynthesis.speak(kumarVoice);
+                                try{   
+                                    kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
+                                    window.speechSynthesis.speak(kumarVoice);
+                                 }catch(e){
+                                     console.log('voice is not supported');
+                                 }
                                 document.getElementById("audioPlayer").setAttribute("src", mp3Url);
                                 document.getElementById('audioPlayer').play();
                             }else if(resString === "music is stopped"){
                                 document.getElementById('audioPlayer').pause();
                                 document.getElementById("audioPlayer").currentTime = 0;
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                                kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
-                                window.speechSynthesis.speak(kumarVoice);
+                                try{   
+                                    kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
+                                    window.speechSynthesis.speak(kumarVoice);
+                                 }catch(e){
+                                     console.log('voice is not supported');
+                                 }
                             }else if(resString === "music is paused"){
                                 document.getElementById('audioPlayer').pause();
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                                kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
-                                window.speechSynthesis.speak(kumarVoice);
+                                try{   
+                                    kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
+                                    window.speechSynthesis.speak(kumarVoice);
+                                 }catch(e){
+                                     console.log('voice is not supported');
+                                 }
                             }else if(resString === "music is resumed") {
                                 document.getElementById('audioPlayer').play();
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                                kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
-                                window.speechSynthesis.speak(kumarVoice);
+                                try{   
+                                    kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
+                                    window.speechSynthesis.speak(kumarVoice);
+                                 }catch(e){
+                                     console.log('voice is not supported');
+                                 }
                             }else{
 
                                 $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>'+kumar_resp.answers[0].actions[0].expression+'</p></li>').appendTo($('.messages ul'));
-                                kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
-                                window.speechSynthesis.speak(kumarVoice);
+                                try{   
+                                    kumarVoice.text = kumar_resp.answers[0].actions[0].expression;
+                                    window.speechSynthesis.speak(kumarVoice);
+                                 }catch(e){
+                                     console.log('voice is not supported');
+                                 }
                             }
                         }
                         
                         $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
                     }else {
                         $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I am not connected with Internet, please check your Internet connection!</p></li>').appendTo($('.messages ul'));
-                        kumarVoice.text = "I am not connected with Internet, please check your Internet connection";
-                        window.speechSynthesis.speak(kumarVoice);
+                        try{
+                            kumarVoice.text = "I am not connected with Internet, please check your Internet connection";
+                            window.speechSynthesis.speak(kumarVoice);
+                        }catch(e){
+                            console.log('voice is not supported');
+                        }
                     }    
                 }
             }).catch(function(e){
                 if(e.statusText == 'timeout'){
-                    kumarVoice.text = "I did not understand!";
-                    window.speechSynthesis.speak(kumarVoice);
+                    try{
+                        kumarVoice.text = "I did not understand!";
+                        window.speechSynthesis.speak(kumarVoice);
+                    }catch(err) {
+                        console.log('voice is not supported');
+                    }
                     $('<li class="replies"><img src="https://kumar.rajendraarora.com/assets/img/kumar.png" alt="Kumar" /><p>I did not understand!</p></li>').appendTo($('.messages ul'));
                 }
             });
