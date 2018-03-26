@@ -64,18 +64,6 @@
     <script>
         callKumarMind("wake up kumar");
 
-        var kumarVoice = new SpeechSynthesisUtterance();
-        kumarVoice.voice = speechSynthesis.getVoices().filter(function(voice) {
-            
-            if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-                return voice.name == "Microsoft David Desktop - English (United States)";
-            }
-            else{
-                return voice.name == "Google UK English Male";
-            }
-
-        })[0];
-
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; 
@@ -139,6 +127,18 @@
                 success: function(kumar_resp) {
 
                     if(kumar_resp) {
+
+                        var kumarVoice = new SpeechSynthesisUtterance();
+                        kumarVoice.voice = speechSynthesis.getVoices().filter(function(voice) {
+                            
+                        if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+                            return voice.name == "Microsoft David Desktop - English (United States)";
+                        }
+                        else{
+                            return voice.name == "Google UK English Male";
+                        }
+
+                        })[0];
 
                         $("#sleeping-msg-container").fadeOut("slow");
                         $("#sending").remove();
