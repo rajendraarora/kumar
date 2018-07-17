@@ -829,3 +829,12 @@ body {
     height:40px;
     width:40px;
 }
+.disclaimer-msg {
+    background: #999;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 22px;
+    margin: 5px auto;
+    display: block;
+}
