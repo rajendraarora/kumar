@@ -838,3 +838,6 @@ body {
     margin: 5px auto;
     display: block;
 }
+.disclaimer-msg p {
+    color: #fff;
+}
